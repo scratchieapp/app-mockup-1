@@ -61,7 +61,7 @@ export const SECTORS_BY_CATEGORY = {
 export type UserGoal = 'manager' | 'worker' | 'both'
 export type UserMode = 'manager' | 'worker'
 export type CategoryId = keyof typeof SECTORS_BY_CATEGORY
-export type Screen = 'welcome' | 'goal' | 'sector-category' | 'sector-specific' | 'worker-tips' | 'manager-tips' | 'manager-dashboard' | 'worker-dashboard'
+export type Screen = 'welcome' | 'goal' | 'role-context' | 'sector-category' | 'sector-specific' | 'worker-tips' | 'manager-tips' | 'manager-dashboard' | 'worker-dashboard'
 
 export interface OnboardingState {
   currentScreen: Screen

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Camera, MessageSquare, Trophy, Star, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Camera, MessageSquare, Trophy, Star, ArrowRight, ChevronLeft, ChevronRight, Shield, Sparkles, TrendingUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -15,45 +15,125 @@ interface WorkerTipsProps {
 export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
   const [currentTip, setCurrentTip] = useState(0)
 
+  // Industry-specific examples
+  const getSectorExample = () => {
+    const examples: Record<string, { good: string, hazard: string, points: string }> = {
+      'Construction': {
+        good: 'proper scaffold setup',
+        hazard: 'missing edge protection',
+        points: '500 points for fall hazards'
+      },
+      'Mining': {
+        good: 'correct isolation procedures',
+        hazard: 'damaged equipment',
+        points: '750 points for equipment issues'
+      },
+      'Healthcare': {
+        good: 'PPE compliance',
+        hazard: 'blocked emergency exit',
+        points: '400 points for safety observations'
+      },
+      'Manufacturing': {
+        good: 'proper lockout/tagout',
+        hazard: 'oil spill on floor',
+        points: '500 points for hazard reports'
+      },
+      'Retail': {
+        good: 'safe ladder use',
+        hazard: 'wet floor without sign',
+        points: '300 points per card'
+      },
+      'Quick Service Restaurants': {
+        good: 'proper lifting technique',
+        hazard: 'blocked fire exit',
+        points: '250 points per observation'
+      },
+      'Transport': {
+        good: 'vehicle inspection completed',
+        hazard: 'unsecured load',
+        points: '600 points for vehicle safety'
+      },
+      'Agriculture': {
+        good: 'chemical storage compliance',
+        hazard: 'damaged safety guard',
+        points: '500 points for farm safety'
+      }
+    }
+    return examples[sector || ''] || {
+      good: 'safe work practices',
+      hazard: 'potential hazards',
+      points: '500 points per card'
+    }
+  }
+
+  const sectorExamples = getSectorExample()
+
   const tips = [
     {
       icon: Camera,
-      title: "Create Your First Convo Card",
-      description: "Share safety wins and hazards with photos",
+      title: "Create Your First ConvoCard",
+      description: `Share what you see in ${sector || 'your workplace'}`,
       steps: [
-        "Tap the camera button",
-        "Take a photo of good work or a hazard",
-        "Add a quick description",
-        "Earn points instantly!"
+        "Open the Scratchie app",
+        "Tap the camera button (big orange circle)",
+        `Take a photo of ${sectorExamples.good} or ${sectorExamples.hazard}`,
+        "Choose: 'Good Work' or 'Hazard Alert'",
+        "Add a quick description (voice or text)",
+        "Hit 'Share' - instant points!"
       ],
+      proTip: `First card bonus: 1000 points! Regular cards earn ${sectorExamples.points}`,
       color: "bg-scratchie-cash-lighter",
-      iconColor: "text-scratchie-cash"
+      iconColor: "text-scratchie-cash",
+      reward: "🎯 50 bonus points on first card!"
     },
     {
-      icon: Trophy,
-      title: "Earn Recognition & Rewards",
-      description: "Get noticed for your safety efforts",
+      icon: Shield,
+      title: "What Makes a Great ConvoCard",
+      description: "Quality beats quantity - every time",
       steps: [
-        "Create Convo Cards regularly",
-        "Get recognised by managers",
-        "Earn points for each card",
-        "Redeem rewards with your points"
+        "Clear photo showing the issue/good work",
+        "Brief but specific description",
+        "Location details (where exactly?)",
+        "Suggest a fix for hazards",
+        "Tag relevant team members",
+        "Follow up if action needed"
       ],
-      color: "bg-scratchie-yellow",
-      iconColor: "text-yellow-700"
+      proTip: "Great ConvoCards get manager recognition + bonus Scratchies!",
+      color: "bg-blue-50",
+      iconColor: "text-blue-600",
+      examples: {
+        good: [
+          `"${sectorExamples.good} - Team followed all procedures"`,
+          `"Fixed ${sectorExamples.hazard} before shift start"`
+        ],
+        bad: [
+          '"Unsafe" (too vague)',
+          '"Same as yesterday" (no context)'
+        ]
+      }
     },
     {
-      icon: Star,
+      icon: TrendingUp,
       title: "Build Your Safety Score",
-      description: "Track your contribution to site safety",
+      description: "Turn observations into rewards",
       steps: [
-        "Quality beats quantity",
-        "Share diverse observations",
-        "Help teammates stay safe",
-        "Watch your score grow"
+        "Create 3 ConvoCards per week minimum",
+        "Mix positive observations and hazards",
+        "Check your dashboard for points balance",
+        "Redeem points in the rewards store",
+        "Compete in team challenges",
+        "Earn manager recognition"
       ],
-      color: "bg-scratchie-blue",
-      iconColor: "text-blue-600"
+      proTip: `Top performers in ${sector || 'your sector'} average 12 ConvoCards/month and earn $50+ in rewards!`,
+      color: "bg-scratchie-yellow",
+      iconColor: "text-yellow-700",
+      rewards: [
+        "Gift cards",
+        "Charity donations",
+        "Extra break time",
+        "Premium parking",
+        "Team lunch vouchers"
+      ]
     }
   ]
 
@@ -80,10 +160,10 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Badge variant="cash" className="mb-4">Quick Start Guide</Badge>
-          <h1 className="text-2xl font-bold mb-2">Welcome to Scratchie!</h1>
+          <Badge variant="cash" className="mb-4">Worker Quick Start</Badge>
+          <h1 className="text-2xl font-bold mb-2">Master ConvoCards!</h1>
           <p className="text-gray-600">
-            {sector ? `Here's how to get started in ${sector}` : "Here's how to get started"}
+            {sector ? `Safety communication for ${sector}` : "Share safety, earn rewards"}
           </p>
         </motion.div>
       </div>
@@ -106,7 +186,7 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
               <h2 className="text-xl font-bold mb-2">{tip.title}</h2>
               <p className="text-gray-600 mb-6">{tip.description}</p>
 
-              <div className="space-y-3">
+              <div className="space-y-3 mb-6">
                 {tip.steps.map((step, index) => (
                   <motion.div
                     key={index}
@@ -115,13 +195,63 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-start gap-3"
                   >
-                    <div className="w-6 h-6 bg-scratchie-carrot-lighter rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-scratchie-carrot">{index + 1}</span>
+                    <div className="w-6 h-6 bg-scratchie-cash-lighter rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-scratchie-cash">{index + 1}</span>
                     </div>
                     <p className="text-sm text-gray-700">{step}</p>
                   </motion.div>
                 ))}
               </div>
+
+              {/* Special content based on tip */}
+              {tip.examples && (
+                <div className="mb-6 space-y-3">
+                  <div className="p-3 bg-green-50 rounded-lg">
+                    <p className="text-xs font-semibold text-green-800 mb-2">✅ GOOD EXAMPLES:</p>
+                    {tip.examples.good.map((example, i) => (
+                      <p key={i} className="text-xs text-green-700">{example}</p>
+                    ))}
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-lg">
+                    <p className="text-xs font-semibold text-red-800 mb-2">❌ AVOID:</p>
+                    {tip.examples.bad.map((example, i) => (
+                      <p key={i} className="text-xs text-red-700">{example}</p>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {tip.rewards && (
+                <div className="mb-6">
+                  <p className="text-xs font-semibold text-gray-700 mb-2">REWARDS YOU CAN EARN:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {tip.rewards.map((reward, i) => (
+                      <Badge key={i} variant="secondary" className="text-xs">
+                        {reward}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Pro Tip Box */}
+              <div className="p-3 bg-scratchie-yellow rounded-lg">
+                <div className="flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 text-yellow-700 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-semibold text-yellow-900 mb-1">PRO TIP</p>
+                    <p className="text-xs text-yellow-800">{tip.proTip}</p>
+                  </div>
+                </div>
+              </div>
+
+              {tip.reward && (
+                <div className="mt-4 p-3 bg-gradient-to-r from-scratchie-cash-lighter to-scratchie-cash-light rounded-lg">
+                  <p className="text-sm font-semibold text-scratchie-cash text-center">
+                    {tip.reward}
+                  </p>
+                </div>
+              )}
             </Card>
           </motion.div>
         </AnimatePresence>
@@ -146,7 +276,7 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
                 key={index}
                 className={`h-2 rounded-full transition-all ${
                   index === currentTip
-                    ? 'w-8 bg-scratchie-carrot'
+                    ? 'w-8 bg-scratchie-cash'
                     : 'w-2 bg-gray-300'
                 }`}
               />
@@ -174,18 +304,35 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <Button
-            onClick={onContinue}
-            variant="cash"
-            size="lg"
-            className="w-full group"
-          >
-            Let's Create Your First Card
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          {currentTip === tips.length - 1 ? (
+            <Button
+              onClick={onContinue}
+              variant="cash"
+              size="lg"
+              className="w-full group"
+            >
+              Create My First ConvoCard
+              <Camera className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform" />
+            </Button>
+          ) : (
+            <Button
+              onClick={nextTip}
+              variant="cash"
+              size="lg"
+              className="w-full group"
+            >
+              Continue
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          )}
 
           <p className="text-center text-xs text-gray-500 mt-3">
-            You'll earn 50 bonus points for your first Convo Card!
+            {currentTip === 0
+              ? "You'll earn 1000 bonus points for your first ConvoCard!"
+              : currentTip === tips.length - 1
+              ? "Takes less than 30 seconds to create a ConvoCard"
+              : `Tip ${currentTip + 1} of ${tips.length}`
+            }
           </p>
         </motion.div>
       </div>

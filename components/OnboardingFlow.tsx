@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { MobileFrame } from './MobileFrame'
 import { WelcomeScreen } from './screens/WelcomeScreen'
 import { GoalSelectionScreen } from './screens/GoalSelectionScreen'
+import { RoleContextScreen } from './screens/RoleContextScreen'
 import { SectorCategoryScreen } from './screens/SectorCategoryScreen'
 import { SectorSpecificScreen } from './screens/SectorSpecificScreen'
 import { WorkerTips } from './screens/WorkerTips'
@@ -82,13 +83,32 @@ export function OnboardingFlow({ initialStep }: OnboardingFlowProps) {
 
   const handleGoalSelect = (goal: UserGoal) => {
     analytics.trackGoalSelected(goal)
+    if (goal === 'both') {
+      // For users with both roles, ask what they want to do today
+      setState((prev: any) => ({
+        ...prev,
+        userGoal: goal,
+        currentScreen: 'role-context'
+      }))
+    } else {
+      setState((prev: any) => ({
+        ...prev,
+        userGoal: goal,
+        userMode: goal,
+        currentScreen: 'sector-category'
+      }))
+    }
+    Storage.saveUserPreferences({ goal })
+  }
+
+  const handleRoleContextSelect = (context: 'manager' | 'worker') => {
+    analytics.track('role_context_selected', { context })
     setState((prev: any) => ({
       ...prev,
-      userGoal: goal,
-      userMode: goal === 'both' ? 'worker' : goal,
+      userMode: context,
       currentScreen: 'sector-category'
     }))
-    Storage.saveUserPreferences({ goal })
+    Storage.saveUserPreferences({ mode: context })
   }
 
   const handleCategorySelect = (category: string) => {
@@ -150,7 +170,8 @@ export function OnboardingFlow({ initialStep }: OnboardingFlowProps) {
     const backMap: Record<Screen, Screen> = {
       'welcome': 'welcome',
       'goal': 'welcome',
-      'sector-category': 'goal',
+      'role-context': 'goal',
+      'sector-category': state.userGoal === 'both' ? 'role-context' : 'goal',
       'sector-specific': 'sector-category',
       'worker-tips': 'sector-specific',
       'manager-tips': 'sector-specific',
@@ -213,6 +234,14 @@ export function OnboardingFlow({ initialStep }: OnboardingFlowProps) {
           <GoalSelectionScreen
             onBack={handleBack}
             onSelectGoal={handleGoalSelect}
+          />
+        )
+
+      case 'role-context':
+        return (
+          <RoleContextScreen
+            onBack={handleBack}
+            onSelectContext={handleRoleContextSelect}
           />
         )
 
