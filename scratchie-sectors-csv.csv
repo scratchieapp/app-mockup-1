@@ -1,0 +1,32 @@
+Sector,Category,Description,Key Use Cases,Employee Model
+Construction,Core Industry,Building and infrastructure projects,Safety compliance; Quality workmanship; Site cleanliness,Vendor-based (subcontractors)
+Manufacturing,Core Industry,Industrial production and processing,Quality control; Safety procedures; Production efficiency,Employee-based
+Retail,Core Industry,All types of retail operations,Customer service; Sales performance; Stock management,Employee-based
+Transport & Logistics,Core Industry,Shipping trucking warehousing distribution,Safe driving; On-time delivery; Vehicle care,Mixed (employees & contractors)
+Hospitality,Core Industry,Hotels restaurants food service tourism,Guest satisfaction; Cleanliness; Service quality,Employee-based
+Facilities Management,Core Industry,Property management and building maintenance,Service quality; Safety compliance; Client satisfaction,Vendor-based (contractors)
+Mining,Core Industry,Extraction processing and resources,Safety procedures; Equipment care; Productivity,Mixed (employees & contractors)
+Healthcare & Pharmaceuticals,Core Industry,Hospitals clinics pharmaceutical manufacturing,Hand hygiene; Patient care; Compliance,Employee-based
+Quick Service Restaurants (QSR),Food Service,Fast food and quick service dining,Customer service; Food safety; Speed of service,Employee-based
+Food Safety & Processing,Food Service,Food production and processing facilities,Quality standards; Safety compliance; Hygiene,Employee-based
+Agriculture & Farming,Primary Industry,Crop production livestock farm operations,Safety practices; Equipment care; Animal welfare,Mixed (employees & contractors)
+Energy Sector,Infrastructure,Oil & Gas Renewable Energy Nuclear Power,Safety compliance; Environmental standards; Operational excellence,Mixed (employees & contractors)
+Utilities,Infrastructure,Water electricity gas distribution,Safety procedures; Service reliability; Emergency response,Employee-based
+Automotive,Manufacturing & Service,Vehicle manufacturing dealerships service centers,Quality work; Customer service; Safety compliance,Mixed (employees & service contractors)
+Aviation,Transportation,Airlines airports aircraft maintenance,Safety compliance; On-time performance; Customer service,Mixed (employees & contractors)
+Marine & Maritime,Transportation,Shipping ports offshore operations,Safety at sea; Environmental compliance; Operational efficiency,Mixed (employees & contractors)
+Warehousing,Logistics,Storage and distribution centers,Safety compliance; Accuracy; Productivity,Employee-based
+Education,Public Service,Schools universities educational institutions,Student safety; Service quality; Compliance,Employee-based
+Government & Public Sector,Public Service,Municipal state federal agencies,Service delivery; Compliance; Efficiency,Employee-based
+Emergency Services,Public Service,Fire police ambulance emergency response,Response times; Safety procedures; Team performance,Employee-based
+Retirement & Aged Care,Healthcare,Senior living facilities and care homes,Care quality; Staff engagement; Compliance,Employee-based
+Property Management & Real Estate,Service Industry,Commercial and residential property management,Tenant satisfaction; Maintenance quality; Safety,Vendor-based (contractors)
+Events & Entertainment,Service Industry,Sports venues entertainment facilities,Customer experience; Safety; Operational efficiency,Mixed (employees & contractors)
+Sport,Service Industry,Professional sports organizations stadiums,Performance; Safety; Fan experience,Employee-based
+Finance & Banking,Professional Services,Financial institutions and banks,Customer service; Compliance; Accuracy,Employee-based
+Software & Technology,Professional Services,Tech companies and software development,Project delivery; Innovation; Quality,Employee-based
+Telecommunications,Professional Services,Telecom infrastructure and service providers,Service quality; Safety; Customer satisfaction,Mixed (employees & contractors)
+Non-profits,Other,Charitable organizations and NGOs,Volunteer engagement; Service delivery; Compliance,Mixed (employees & volunteers)
+Chemicals,Industrial,Chemical production and processing,Safety compliance; Quality control; Environmental standards,Employee-based
+Travel,Service Industry,Travel agencies and tourism operators,Customer service; Safety; Experience quality,Employee-based
+Electric Vehicle Charging,Emerging Sector,EV infrastructure and charging networks,Installation quality; Maintenance; Customer service,Vendor-based (contractors)
