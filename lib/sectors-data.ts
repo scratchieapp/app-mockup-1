@@ -4,82 +4,360 @@ export interface Sector {
   description: string
   keyUseCases: string
   employeeModel: string
+  tags: string[] // Search tags for better discoverability
+  environment: 'field' | 'office' | 'mixed' // Work environment type
 }
 
-// Parse CSV data into structured format
 export const SECTORS_DATA: Sector[] = [
-  { name: "Construction", category: "Core Industry", description: "Building and infrastructure projects", keyUseCases: "Safety compliance; Quality workmanship; Site cleanliness", employeeModel: "Vendor-based (subcontractors)" },
-  { name: "Manufacturing", category: "Core Industry", description: "Industrial production and processing", keyUseCases: "Quality control; Safety procedures; Production efficiency", employeeModel: "Employee-based" },
-  { name: "Retail", category: "Core Industry", description: "All types of retail operations", keyUseCases: "Customer service; Sales performance; Stock management", employeeModel: "Employee-based" },
-  { name: "Transport & Logistics", category: "Core Industry", description: "Shipping trucking warehousing distribution", keyUseCases: "Safe driving; On-time delivery; Vehicle care", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Hospitality", category: "Core Industry", description: "Hotels restaurants food service tourism", keyUseCases: "Guest satisfaction; Cleanliness; Service quality", employeeModel: "Employee-based" },
-  { name: "Facilities Management", category: "Core Industry", description: "Property management and building maintenance", keyUseCases: "Service quality; Safety compliance; Client satisfaction", employeeModel: "Vendor-based (contractors)" },
-  { name: "Mining", category: "Core Industry", description: "Extraction processing and resources", keyUseCases: "Safety procedures; Equipment care; Productivity", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Healthcare & Pharmaceuticals", category: "Core Industry", description: "Hospitals clinics pharmaceutical manufacturing", keyUseCases: "Hand hygiene; Patient care; Compliance", employeeModel: "Employee-based" },
-  { name: "Quick Service Restaurants (QSR)", category: "Food Service", description: "Fast food and quick service dining", keyUseCases: "Customer service; Food safety; Speed of service", employeeModel: "Employee-based" },
-  { name: "Food Safety & Processing", category: "Food Service", description: "Food production and processing facilities", keyUseCases: "Quality standards; Safety compliance; Hygiene", employeeModel: "Employee-based" },
-  { name: "Agriculture & Farming", category: "Primary Industry", description: "Crop production livestock farm operations", keyUseCases: "Safety practices; Equipment care; Animal welfare", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Energy Sector", category: "Infrastructure", description: "Oil & Gas Renewable Energy Nuclear Power", keyUseCases: "Safety compliance; Environmental standards; Operational excellence", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Utilities", category: "Infrastructure", description: "Water electricity gas distribution", keyUseCases: "Safety procedures; Service reliability; Emergency response", employeeModel: "Employee-based" },
-  { name: "Automotive", category: "Manufacturing & Service", description: "Vehicle manufacturing dealerships service centers", keyUseCases: "Quality work; Customer service; Safety compliance", employeeModel: "Mixed (employees & service contractors)" },
-  { name: "Aviation", category: "Transportation", description: "Airlines airports aircraft maintenance", keyUseCases: "Safety compliance; On-time performance; Customer service", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Marine & Maritime", category: "Transportation", description: "Shipping ports offshore operations", keyUseCases: "Safety at sea; Environmental compliance; Operational efficiency", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Warehousing", category: "Logistics", description: "Storage and distribution centers", keyUseCases: "Safety compliance; Accuracy; Productivity", employeeModel: "Employee-based" },
-  { name: "Education", category: "Public Service", description: "Schools universities educational institutions", keyUseCases: "Student safety; Service quality; Compliance", employeeModel: "Employee-based" },
-  { name: "Government & Public Sector", category: "Public Service", description: "Municipal state federal agencies", keyUseCases: "Service delivery; Compliance; Efficiency", employeeModel: "Employee-based" },
-  { name: "Emergency Services", category: "Public Service", description: "Fire police ambulance emergency response", keyUseCases: "Response times; Safety procedures; Team performance", employeeModel: "Employee-based" },
-  { name: "Retirement & Aged Care", category: "Healthcare", description: "Senior living facilities and care homes", keyUseCases: "Care quality; Staff engagement; Compliance", employeeModel: "Employee-based" },
-  { name: "Property Management & Real Estate", category: "Service Industry", description: "Commercial and residential property management", keyUseCases: "Tenant satisfaction; Maintenance quality; Safety", employeeModel: "Vendor-based (contractors)" },
-  { name: "Events & Entertainment", category: "Service Industry", description: "Sports venues entertainment facilities", keyUseCases: "Customer experience; Safety; Operational efficiency", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Sport", category: "Service Industry", description: "Professional sports organizations stadiums", keyUseCases: "Performance; Safety; Fan experience", employeeModel: "Employee-based" },
-  { name: "Finance & Banking", category: "Professional Services", description: "Financial institutions and banks", keyUseCases: "Customer service; Compliance; Accuracy", employeeModel: "Employee-based" },
-  { name: "Software & Technology", category: "Professional Services", description: "Tech companies and software development", keyUseCases: "Project delivery; Innovation; Quality", employeeModel: "Employee-based" },
-  { name: "Telecommunications", category: "Professional Services", description: "Telecom infrastructure and service providers", keyUseCases: "Service quality; Safety; Customer satisfaction", employeeModel: "Mixed (employees & contractors)" },
-  { name: "Non-profits", category: "Other", description: "Charitable organizations and NGOs", keyUseCases: "Volunteer engagement; Service delivery; Compliance", employeeModel: "Mixed (employees & volunteers)" },
-  { name: "Chemicals", category: "Industrial", description: "Chemical production and processing", keyUseCases: "Safety compliance; Quality control; Environmental standards", employeeModel: "Employee-based" },
-  { name: "Travel", category: "Service Industry", description: "Travel agencies and tourism operators", keyUseCases: "Customer service; Safety; Experience quality", employeeModel: "Employee-based" },
-  { name: "Electric Vehicle Charging", category: "Emerging Sector", description: "EV infrastructure and charging networks", keyUseCases: "Installation quality; Maintenance; Customer service", employeeModel: "Vendor-based (contractors)" }
+  // Core Industry (Hard hat industries)
+  {
+    name: "Construction",
+    category: "Core Industry",
+    description: "Building and infrastructure projects",
+    keyUseCases: "Safety compliance; Quality workmanship; Site cleanliness",
+    employeeModel: "Vendor-based (subcontractors)",
+    tags: ["building", "contractor", "builder", "trades", "site", "scaffold", "concrete", "crane"],
+    environment: "field"
+  },
+  {
+    name: "Mining",
+    category: "Core Industry",
+    description: "Resource extraction and processing",
+    keyUseCases: "Equipment safety; Environmental compliance; Hazard reporting",
+    employeeModel: "Mixed (employees + contractors)",
+    tags: ["quarry", "extraction", "minerals", "resources", "underground", "drill", "excavation"],
+    environment: "field"
+  },
+  {
+    name: "Manufacturing",
+    category: "Core Industry",
+    description: "Production facilities and factories",
+    keyUseCases: "Machine safety; Quality control; Process improvement",
+    employeeModel: "Employee-based",
+    tags: ["factory", "production", "assembly", "industrial", "plant", "warehouse", "facility"],
+    environment: "field"
+  },
+  {
+    name: "Oil & Gas",
+    category: "Core Industry",
+    description: "Energy extraction and refining",
+    keyUseCases: "Process safety; Environmental protection; Equipment maintenance",
+    employeeModel: "Mixed (employees + contractors)",
+    tags: ["petroleum", "refinery", "drilling", "energy", "offshore", "pipeline", "fuel"],
+    environment: "field"
+  },
+  {
+    name: "Heavy Industry",
+    category: "Core Industry",
+    description: "Steel, chemicals, and heavy machinery",
+    keyUseCases: "Chemical safety; Equipment operation; Environmental compliance",
+    employeeModel: "Employee-based",
+    tags: ["steel", "chemical", "machinery", "foundry", "metal", "smelting", "industrial"],
+    environment: "field"
+  },
+
+  // Hospitality
+  {
+    name: "Quick Service Restaurants",
+    category: "Hospitality",
+    description: "Fast food and quick dining establishments",
+    keyUseCases: "Food safety; Slip prevention; Burns prevention",
+    employeeModel: "Employee-based",
+    tags: ["QSR", "fast food", "restaurant", "food service", "kitchen", "dining", "cafe", "takeaway"],
+    environment: "field"
+  },
+  {
+    name: "Hotels & Accommodation",
+    category: "Hospitality",
+    description: "Hotels, motels, and lodging services",
+    keyUseCases: "Guest safety; Staff wellbeing; Housekeeping safety",
+    employeeModel: "Employee-based",
+    tags: ["hotel", "motel", "lodging", "accommodation", "resort", "hospitality", "guest services"],
+    environment: "mixed"
+  },
+  {
+    name: "Restaurants & Bars",
+    category: "Hospitality",
+    description: "Full-service dining and entertainment venues",
+    keyUseCases: "Kitchen safety; Customer incidents; Staff training",
+    employeeModel: "Employee-based",
+    tags: ["dining", "bar", "pub", "restaurant", "bistro", "tavern", "nightclub", "entertainment"],
+    environment: "field"
+  },
+  {
+    name: "Catering & Events",
+    category: "Hospitality",
+    description: "Event services and catering operations",
+    keyUseCases: "Food handling; Equipment transport; Venue safety",
+    employeeModel: "Mixed (employees + contractors)",
+    tags: ["catering", "events", "functions", "banquet", "wedding", "corporate events", "food service"],
+    environment: "field"
+  },
+
+  // Healthcare
+  {
+    name: "Hospitals",
+    category: "Healthcare",
+    description: "Medical centers and hospital facilities",
+    keyUseCases: "Patient safety; Infection control; Staff wellbeing",
+    employeeModel: "Employee-based",
+    tags: ["hospital", "medical center", "emergency", "ward", "clinic", "medical", "health"],
+    environment: "mixed"
+  },
+  {
+    name: "Aged Care",
+    category: "Healthcare",
+    description: "Nursing homes and elderly care facilities",
+    keyUseCases: "Resident safety; Manual handling; Medication safety",
+    employeeModel: "Employee-based",
+    tags: ["nursing home", "elderly care", "senior care", "retirement", "assisted living", "care home"],
+    environment: "field"
+  },
+  {
+    name: "Medical Practices",
+    category: "Healthcare",
+    description: "Clinics and private medical practices",
+    keyUseCases: "Patient privacy; Equipment hygiene; Staff safety",
+    employeeModel: "Employee-based",
+    tags: ["clinic", "doctor", "GP", "medical practice", "surgery", "physician", "practitioner"],
+    environment: "office"
+  },
+  {
+    name: "Allied Health",
+    category: "Healthcare",
+    description: "Physiotherapy, dental, and specialist services",
+    keyUseCases: "Patient handling; Equipment safety; Hygiene protocols",
+    employeeModel: "Mixed (employees + contractors)",
+    tags: ["physio", "physiotherapy", "dental", "dentist", "specialist", "therapy", "rehabilitation"],
+    environment: "office"
+  },
+  {
+    name: "Pathology & Diagnostics",
+    category: "Healthcare",
+    description: "Testing laboratories and diagnostic centers",
+    keyUseCases: "Specimen handling; Chemical safety; Equipment maintenance",
+    employeeModel: "Employee-based",
+    tags: ["lab", "laboratory", "pathology", "testing", "diagnostics", "blood", "radiology", "x-ray"],
+    environment: "office"
+  },
+
+  // Transportation
+  {
+    name: "Trucking & Logistics",
+    category: "Transportation",
+    description: "Freight, delivery, and logistics operations",
+    keyUseCases: "Driver safety; Load securing; Route planning",
+    employeeModel: "Mixed (employees + owner-operators)",
+    tags: ["trucking", "freight", "logistics", "delivery", "transport", "haulage", "shipping", "courier"],
+    environment: "field"
+  },
+  {
+    name: "Warehousing",
+    category: "Transportation",
+    description: "Storage and distribution centers",
+    keyUseCases: "Forklift safety; Manual handling; Storage systems",
+    employeeModel: "Employee-based",
+    tags: ["warehouse", "distribution", "storage", "fulfillment", "logistics", "inventory", "supply chain"],
+    environment: "field"
+  },
+  {
+    name: "Public Transport",
+    category: "Transportation",
+    description: "Bus, train, and public transit services",
+    keyUseCases: "Passenger safety; Driver wellbeing; Vehicle maintenance",
+    employeeModel: "Employee-based",
+    tags: ["bus", "train", "transit", "public transport", "metro", "subway", "tram", "railway"],
+    environment: "field"
+  },
+  {
+    name: "Aviation",
+    category: "Transportation",
+    description: "Airlines and airport operations",
+    keyUseCases: "Ground safety; Security compliance; Equipment handling",
+    employeeModel: "Employee-based",
+    tags: ["aviation", "airline", "airport", "aircraft", "flight", "ground crew", "baggage", "terminal"],
+    environment: "field"
+  },
+  {
+    name: "Maritime",
+    category: "Transportation",
+    description: "Shipping and port operations",
+    keyUseCases: "Vessel safety; Cargo handling; Port operations",
+    employeeModel: "Mixed (employees + contractors)",
+    tags: ["shipping", "port", "maritime", "vessel", "cargo", "dock", "harbor", "marine"],
+    environment: "field"
+  },
+
+  // Professional Services (Office-based)
+  {
+    name: "Corporate Offices",
+    category: "Professional Services",
+    description: "General office and administrative environments",
+    keyUseCases: "Ergonomics; Mental wellbeing; Team collaboration",
+    employeeModel: "Employee-based",
+    tags: ["office", "corporate", "business", "administration", "desk", "white collar", "professional"],
+    environment: "office"
+  },
+  {
+    name: "Financial Services",
+    category: "Professional Services",
+    description: "Banking, insurance, and financial institutions",
+    keyUseCases: "Stress management; Security protocols; Ergonomic setup",
+    employeeModel: "Employee-based",
+    tags: ["banking", "finance", "insurance", "accounting", "investment", "financial", "bank"],
+    environment: "office"
+  },
+  {
+    name: "Technology",
+    category: "Professional Services",
+    description: "IT companies and tech startups",
+    keyUseCases: "Workstation setup; Mental health; Team collaboration",
+    employeeModel: "Employee-based",
+    tags: ["IT", "tech", "software", "technology", "startup", "digital", "computer", "developer"],
+    environment: "office"
+  },
+  {
+    name: "Consulting",
+    category: "Professional Services",
+    description: "Management and professional consulting",
+    keyUseCases: "Travel safety; Client site safety; Work-life balance",
+    employeeModel: "Employee-based",
+    tags: ["consulting", "consultant", "advisory", "management", "strategy", "professional services"],
+    environment: "office"
+  },
+  {
+    name: "Legal Services",
+    category: "Professional Services",
+    description: "Law firms and legal practices",
+    keyUseCases: "Workplace stress; Document handling; Client safety",
+    employeeModel: "Employee-based",
+    tags: ["legal", "law", "lawyer", "attorney", "solicitor", "barrister", "law firm", "legal practice"],
+    environment: "office"
+  },
+
+  // Infrastructure
+  {
+    name: "Utilities",
+    category: "Infrastructure",
+    description: "Power, water, and gas utilities",
+    keyUseCases: "Electrical safety; Field work safety; Emergency response",
+    employeeModel: "Employee-based",
+    tags: ["utilities", "power", "electricity", "water", "gas", "energy", "grid", "supply"],
+    environment: "mixed"
+  },
+  {
+    name: "Telecommunications",
+    category: "Infrastructure",
+    description: "Telecom networks and services",
+    keyUseCases: "Tower safety; Cable installation; Equipment handling",
+    employeeModel: "Mixed (employees + contractors)",
+    tags: ["telecom", "telecommunications", "network", "internet", "mobile", "tower", "cable", "fiber"],
+    environment: "mixed"
+  },
+  {
+    name: "Waste Management",
+    category: "Infrastructure",
+    description: "Waste collection and recycling services",
+    keyUseCases: "Vehicle safety; Manual handling; Hazardous materials",
+    employeeModel: "Employee-based",
+    tags: ["waste", "garbage", "recycling", "rubbish", "sanitation", "disposal", "collection"],
+    environment: "field"
+  },
+  {
+    name: "Water Treatment",
+    category: "Infrastructure",
+    description: "Water and wastewater treatment facilities",
+    keyUseCases: "Chemical handling; Confined spaces; Equipment safety",
+    employeeModel: "Employee-based",
+    tags: ["water treatment", "wastewater", "sewage", "treatment plant", "water quality", "filtration"],
+    environment: "field"
+  },
+  {
+    name: "Renewable Energy",
+    category: "Infrastructure",
+    description: "Solar, wind, and renewable energy operations",
+    keyUseCases: "Height safety; Electrical safety; Environmental monitoring",
+    employeeModel: "Mixed (employees + contractors)",
+    tags: ["solar", "wind", "renewable", "green energy", "sustainable", "wind farm", "solar farm"],
+    environment: "field"
+  },
+  {
+    name: "Rail Infrastructure",
+    category: "Infrastructure",
+    description: "Rail network maintenance and operations",
+    keyUseCases: "Track safety; Signal systems; Heavy equipment",
+    employeeModel: "Employee-based",
+    tags: ["rail", "railway", "track", "train infrastructure", "signal", "railroad", "metro"],
+    environment: "field"
+  },
+
+  // Additional sectors that fit into existing categories
+  {
+    name: "Agriculture",
+    category: "Core Industry",
+    description: "Farming and agricultural operations",
+    keyUseCases: "Machinery safety; Chemical handling; Animal safety",
+    employeeModel: "Mixed (employees + seasonal workers)",
+    tags: ["farming", "agriculture", "farm", "crops", "livestock", "harvest", "agricultural", "rural"],
+    environment: "field"
+  },
+  {
+    name: "Retail",
+    category: "Hospitality",
+    description: "Retail stores and shopping centers",
+    keyUseCases: "Manual handling; Customer safety; Stock management",
+    employeeModel: "Employee-based",
+    tags: ["retail", "shop", "store", "shopping", "sales", "customer service", "mall", "boutique"],
+    environment: "mixed"
+  }
 ]
 
-// Get unique categories and map to icons
-export const UNIQUE_CATEGORIES = Array.from(new Set(SECTORS_DATA.map(s => s.category))).sort()
+// Helper function to get categories with their icons
+export const CATEGORY_INFO = [
+  {
+    id: 'Core Industry',
+    label: 'Core Industry',
+    icon: '🏗️',
+    description: 'Construction, mining, manufacturing & heavy industries'
+  },
+  {
+    id: 'Hospitality',
+    label: 'Hospitality',
+    icon: '🍔',
+    description: 'Restaurants, hotels, retail & service industries'
+  },
+  {
+    id: 'Healthcare',
+    label: 'Healthcare',
+    icon: '🏥',
+    description: 'Hospitals, clinics, aged care & medical services'
+  },
+  {
+    id: 'Transportation',
+    label: 'Transportation',
+    icon: '🚚',
+    description: 'Trucking, logistics, public transport & aviation'
+  },
+  {
+    id: 'Professional Services',
+    label: 'Professional Services',
+    icon: '💼',
+    description: 'Corporate offices, finance, tech & consulting'
+  },
+  {
+    id: 'Infrastructure',
+    label: 'Infrastructure',
+    icon: '⚡',
+    description: 'Utilities, telecommunications & essential services'
+  }
+]
 
-export const CATEGORY_ICONS: Record<string, string> = {
-  "Core Industry": "🏗️",
-  "Food Service": "🍔",
-  "Primary Industry": "🌾",
-  "Infrastructure": "⚡",
-  "Manufacturing & Service": "🚗",
-  "Transportation": "✈️",
-  "Logistics": "📦",
-  "Public Service": "🏛️",
-  "Healthcare": "🏥",
-  "Service Industry": "🎭",
-  "Professional Services": "💼",
-  "Industrial": "⚗️",
-  "Emerging Sector": "🔋",
-  "Other": "🏢"
+// Helper function to search sectors by tags
+export function searchSectors(searchTerm: string): Sector[] {
+  const term = searchTerm.toLowerCase()
+  return SECTORS_DATA.filter(sector =>
+    sector.name.toLowerCase().includes(term) ||
+    sector.description.toLowerCase().includes(term) ||
+    sector.tags.some(tag => tag.toLowerCase().includes(term))
+  )
 }
-
-// Group sectors by category
-export const SECTORS_BY_CATEGORY = UNIQUE_CATEGORIES.reduce((acc, category) => {
-  acc[category] = SECTORS_DATA
-    .filter(s => s.category === category)
-    .map(s => s.name)
-  return acc
-}, {} as Record<string, string[]>)
-
-// Get the top 6 categories for initial display
-export const TOP_CATEGORIES = [
-  "Core Industry",
-  "Service Industry",
-  "Healthcare",
-  "Infrastructure",
-  "Transportation",
-  "Professional Services"
-].map(cat => ({
-  id: cat.toLowerCase().replace(/\s+/g, '-'),
-  label: cat,
-  icon: CATEGORY_ICONS[cat] || "🏢",
-  sectorCount: SECTORS_BY_CATEGORY[cat]?.length || 0
-}))

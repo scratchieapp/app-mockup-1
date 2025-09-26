@@ -15,9 +15,10 @@ interface WorkerTipsProps {
 export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
   const [currentTip, setCurrentTip] = useState(0)
 
-  // Industry-specific examples
+  // Industry-specific examples with office vs field differentiation
   const getSectorExample = () => {
-    const examples: Record<string, { good: string, hazard: string, points: string }> = {
+    const examples: Record<string, { good: string, hazard: string, points: string, isOffice?: boolean }> = {
+      // Field-based sectors
       'Construction': {
         good: 'proper scaffold setup',
         hazard: 'missing edge protection',
@@ -28,27 +29,17 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
         hazard: 'damaged equipment',
         points: '750 points for equipment issues'
       },
-      'Healthcare': {
-        good: 'PPE compliance',
-        hazard: 'blocked emergency exit',
-        points: '400 points for safety observations'
-      },
       'Manufacturing': {
         good: 'proper lockout/tagout',
         hazard: 'oil spill on floor',
         points: '500 points for hazard reports'
-      },
-      'Retail': {
-        good: 'safe ladder use',
-        hazard: 'wet floor without sign',
-        points: '300 points per card'
       },
       'Quick Service Restaurants': {
         good: 'proper lifting technique',
         hazard: 'blocked fire exit',
         points: '250 points per observation'
       },
-      'Transport': {
+      'Trucking & Logistics': {
         good: 'vehicle inspection completed',
         hazard: 'unsecured load',
         points: '600 points for vehicle safety'
@@ -57,6 +48,48 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
         good: 'chemical storage compliance',
         hazard: 'damaged safety guard',
         points: '500 points for farm safety'
+      },
+      // Mixed environments
+      'Healthcare': {
+        good: 'PPE compliance',
+        hazard: 'blocked emergency exit',
+        points: '400 points for safety observations'
+      },
+      'Retail': {
+        good: 'safe ladder use',
+        hazard: 'wet floor without sign',
+        points: '300 points per card'
+      },
+      // Office-based sectors
+      'Corporate Offices': {
+        good: 'team collaboration success',
+        hazard: 'ergonomic issue at workstation',
+        points: '300 points for workplace improvements',
+        isOffice: true
+      },
+      'Financial Services': {
+        good: 'process improvement idea',
+        hazard: 'security protocol gap',
+        points: '400 points for operational insights',
+        isOffice: true
+      },
+      'Technology': {
+        good: 'successful project milestone',
+        hazard: 'team burnout risk identified',
+        points: '350 points for team wellbeing',
+        isOffice: true
+      },
+      'Consulting': {
+        good: 'client success story',
+        hazard: 'work-life balance concern',
+        points: '400 points for workplace culture',
+        isOffice: true
+      },
+      'Legal Services': {
+        good: 'efficient case management',
+        hazard: 'document security issue',
+        points: '350 points for compliance observations',
+        isOffice: true
       }
     }
     return examples[sector || ''] || {
@@ -68,11 +101,80 @@ export function WorkerTips({ onContinue, sector }: WorkerTipsProps) {
 
   const sectorExamples = getSectorExample()
 
-  const tips = [
+  const tips = sectorExamples.isOffice ? [
+    // Office-specific tips
+    {
+      icon: Camera,
+      title: "Share Your Work Wins",
+      description: `Document achievements in ${sector || 'your workplace'}`,
+      steps: [
+        "Open the Scratchie app",
+        "Tap the camera button (big orange circle)",
+        `Capture ${sectorExamples.good} or ${sectorExamples.hazard}`,
+        "Choose: 'Achievement' or 'Improvement Needed'",
+        "Add context about impact or importance",
+        "Share with your manager - instant recognition!"
+      ],
+      proTip: `In ${sector || 'office environments'}, focus on process improvements, team wins, and workplace culture`,
+      color: "bg-scratchie-cash-lighter",
+      iconColor: "text-scratchie-cash",
+      reward: "🎯 50 bonus points on first card!"
+    },
+    {
+      icon: Shield,
+      title: "What Makes a Great Office ConvoCard",
+      description: "Quality insights drive workplace improvements",
+      steps: [
+        "Clear photo or screenshot of your work",
+        "Specific context about the achievement/issue",
+        "Impact on team or business outcomes",
+        "Suggestions for improvements",
+        "Tag relevant colleagues or managers",
+        "Follow up on feedback received"
+      ],
+      proTip: "Great ConvoCards in office settings focus on collaboration, innovation, and workplace wellbeing",
+      color: "bg-blue-50",
+      iconColor: "text-blue-600",
+      examples: {
+        good: [
+          `"${sectorExamples.good} - Improved team efficiency by 20%"`,
+          `"Identified ${sectorExamples.hazard} - Proposed solution attached"`
+        ],
+        bad: [
+          '"Good meeting" (too vague)',
+          '"Working hard" (no specific value shown)'
+        ]
+      }
+    },
+    {
+      icon: TrendingUp,
+      title: "Build Your Professional Recognition",
+      description: "Turn contributions into career growth",
+      steps: [
+        "Share 2-3 achievements per week",
+        "Document both successes and learnings",
+        "Track your recognition score",
+        "Redeem points for professional perks",
+        "Participate in team challenges",
+        "Build your professional portfolio"
+      ],
+      proTip: `Top performers in ${sector || 'professional services'} use ConvoCards to build their performance review portfolio`,
+      color: "bg-scratchie-yellow",
+      iconColor: "text-yellow-700",
+      rewards: [
+        "Professional development courses",
+        "Conference tickets",
+        "Extra PTO days",
+        "Home office upgrades",
+        "Team celebration budgets"
+      ]
+    }
+  ] : [
+    // Field-based tips
     {
       icon: Camera,
       title: "Create Your First ConvoCard",
-      description: `Share what you see in ${sector || 'your workplace'}`,
+      description: `Share safety observations in ${sector || 'your workplace'}`,
       steps: [
         "Open the Scratchie app",
         "Tap the camera button (big orange circle)",

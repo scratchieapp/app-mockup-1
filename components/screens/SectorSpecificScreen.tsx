@@ -24,19 +24,11 @@ export function SectorSpecificScreen({ category, onBack, onSelectSector }: Secto
   // Get icon for this category
   const categoryIcons: Record<string, string> = {
     "Core Industry": "🏗️",
-    "Food Service": "🍔",
-    "Primary Industry": "🌾",
-    "Infrastructure": "⚡",
-    "Manufacturing & Service": "🚗",
-    "Transportation": "✈️",
-    "Logistics": "📦",
-    "Public Service": "🏛️",
+    "Hospitality": "🍔",
     "Healthcare": "🏥",
-    "Service Industry": "🎭",
+    "Transportation": "🚚",
     "Professional Services": "💼",
-    "Industrial": "⚗️",
-    "Emerging Sector": "🔋",
-    "Other": "🏢"
+    "Infrastructure": "⚡"
   }
 
   const categoryIcon = categoryIcons[category] || '🏢'
